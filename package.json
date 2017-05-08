@@ -4,7 +4,7 @@
   "description": "Geo locating all cities mentioned in Project Gutenberg books with MongoDB and Neo4J",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -31,6 +31,7 @@
     "mongoose": "^4.9.8"
   },
   "devDependencies": {
+    "istanbul": "^0.4.5",
     "morgan": "^1.8.1",
     "nodemon": "^1.11.0"
   }
