@@ -1,12 +1,14 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var app = express();
+var path = require('path');
 var mongoose = require('mongoose');
 var morgan = require('morgan');
-var port = process.env.PORT || 8080;
+
 var Book = require('./src/models/book');
 var routes = require('./src/js/routes/routes');
-var path = require('path');
+
+var app = express();
+var port = process.env.PORT || 8080;
 
 app.use(morgan('dev')); // log requests to the console
 
