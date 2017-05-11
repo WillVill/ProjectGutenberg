@@ -23,18 +23,10 @@ function getBookStrings(callback) {
 
 // reuturns an array of city objects;
 function getCities(callback) {
-    fs.readFile('/Users/Luke/Desktop/MIASTAKURWA.txt', 'utf8', function(err, cities) {
+    fs.readFile('../../../scraped_cities/scraped_cities15000.txt', 'utf8', function(err, cities) {
         if (err) throw err;
 
         var cityJSON = JSON.parse(cities);
-        // var cityArray = [];
-
-
-        // for (var i = cityJSON.length - 1; i >= 0; i--) {
-        //     cityArray.push(cityJSON[i].name);
-        // }
-
-        // callback(cityArray);
         callback(cityJSON);
     });
 }
@@ -49,12 +41,8 @@ function getCitiesFromBook() {
                 }  
             }
 
-            console.log(citiesArr.length);
             citiesArr.removeDuplicates(); // perhaps unnecessary - to verify later
-            console.log(citiesArr.length);
 
-            // console.log(citiesArr.length, removeDuplicates(citiesArr).length);
-            // console.log('ready', removeDuplicates(citiesArr));
             console.log(createData());
             process.exit(0);
         });
@@ -63,6 +51,7 @@ function getCitiesFromBook() {
     
 }
 
+// FUNCTIONS for either getting cities from a single book or scrapeing cities
 // getCitiesFromBook();
 // scrapeCities();
 
@@ -92,7 +81,7 @@ function scrapeCities() {
 // saves arr of city objects into a text file
 function saveToFile(arr) {
     arr = JSON.stringify(arr);
-    var dir = "/Users/Luke/Desktop/";
+    var dir = "../../../scraped_cities/";
     var fileName = "scraped_cities5000.txt";
     fs.writeFile(dir.concat(fileName), arr, function(err) {
         if (err) throw err;
