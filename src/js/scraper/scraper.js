@@ -5,15 +5,6 @@ var citiesArr = [];
 
 // returns an array of strings (potential cities) from the given book
 function getBookStrings(callback) {
-    // fs.readFile('/Users/Luke/Desktop/testfile.txt', 'utf8', function(err, book) {
-    //     if (err) throw err;
-    //     var regex = /[A-Z]+(?:[\s]?)(?:[\.]?[\s]?)?[A-Za-z. ]*/gm;
-
-    //     var data = book.match(regex).join(" ");
-
-    //     callback(data);
-    // });
-
     var readStream = fs.createReadStream('/Users/Luke/Desktop/38946.txt', 'utf8');
     var book = '';
 
@@ -72,12 +63,12 @@ function getCitiesFromBook() {
     
 }
 
-getCitiesFromBook();
+// getCitiesFromBook();
 // scrapeCities();
 
 // scrapes city name and its geolocation from the given in the exercise file
 function scrapeCities() {
-    fs.readFile('/Users/Luke/Desktop/cities15000.txt', 'utf8', function(err, cities) {  
+    fs.readFile('/Users/Luke/Desktop/cities5000.txt', 'utf8', function(err, cities) {  
         if (err) throw err;
 
         var arrCities = [];
@@ -102,7 +93,7 @@ function scrapeCities() {
 function saveToFile(arr) {
     arr = JSON.stringify(arr);
     var dir = "/Users/Luke/Desktop/";
-    var fileName = "MIASTAKURWA.txt";
+    var fileName = "scraped_cities5000.txt";
     fs.writeFile(dir.concat(fileName), arr, function(err) {
         if (err) throw err;
 
