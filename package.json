@@ -4,8 +4,8 @@
   "description": "Geo locating all cities mentioned in Project Gutenberg books with MongoDB and Neo4J",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
-    "test": "mocha"
+    "start": "nodemon app.js --exec babel-node — presets es2015",
+    "test": "babel-node node_modules/.bin/cucumber-js"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,9 @@
   },
   "devDependencies": {
     "assert": "^1.4.1",
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.4.0",
+    "babel-preset-es2015": "^6.24.1",
     "chromedriver": "^2.29.0",
     "cucumber": "^2.0.0-rc.9",
     "istanbul": "^0.4.5",
