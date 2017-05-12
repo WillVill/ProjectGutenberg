@@ -28,7 +28,8 @@
     "express": "^4.15.2",
     "jade": "^1.11.0",
     "mongodb": "^2.2.26",
-    "mongoose": "^4.9.8"
+    "mongoose": "^4.9.8",
+    "papaparse": "^4.3.2"
   },
   "devDependencies": {
     "assert": "^1.4.1",
