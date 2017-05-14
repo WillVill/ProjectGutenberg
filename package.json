@@ -25,6 +25,7 @@
   "homepage": "https://github.com/WillVill/ProjectGutenberg#readme",
   "dependencies": {
     "body-parser": "^1.17.1",
+    "colors": "^1.1.2",
     "express": "^4.15.2",
     "jade": "^1.11.0",
     "mongodb": "^2.2.26",
