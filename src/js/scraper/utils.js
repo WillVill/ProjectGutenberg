@@ -16,7 +16,11 @@ module.exports = {
 
         fs.appendFileSync(dir + fileName + "." + extension, text);
 
-        console.log("Book: " + bookTitle.bold + " by " + bookAuthor.bold + "\t✓".bold.green);
+        if (bookTitle && bookAuthor) {
+            console.log("Book: " + bookTitle.bold + " by " + bookAuthor.bold + "\t✓".bold.green);
+        } else {
+            console.log("File " + fileName + "." + extension + " saved succesfully!" + "\t✓".bold.green);
+        }
     },
 
     getProgressPercentage(a, b) {
