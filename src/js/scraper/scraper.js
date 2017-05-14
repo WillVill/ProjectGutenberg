@@ -21,7 +21,8 @@ function getPotentialCitiesFromBook(book) {
 }
 
 function getCities() {
-    var cities = fs.readFileSync('../../../scraped_cities/scraped_cities15000.txt', 'utf8');
+    // scraped_cities15000 is the SMALL one; scraped_cities5000 is twice as big!!
+    var cities = fs.readFileSync('../../../scraped_cities/scraped_cities5000.txt', 'utf8');
     var cityJSON = JSON.parse(cities);
     return cityJSON;
 }
@@ -77,7 +78,7 @@ function scrapeCities(citiesFile) {
             });
         }
 
-        utils.saveToFile(arrCities, "../../../scraped_cities/", "scraped_cities15000", "txt");
+        utils.saveToFile(arrCities, "../../../scraped_cities/", "scraped_cities5000", "csv");
     });
 }
 
@@ -139,5 +140,5 @@ function scrapeBooks(dirWithBooks) {
     });
 }
 
-// scrapeCities('/Users/Luke/Desktop/cities15000.txt');
+// scrapeCities('/Users/Luke/Desktop/cities5000.txt');
 scrapeBooks('/Users/Luke/Desktop/books_part_2/');
