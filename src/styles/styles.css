@@ -1,0 +1,55 @@
+.pageContainer {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+
+.titleContainer {
+	padding: 1.5em;
+	vertical-align: middle;
+	background: #0B3C5D;
+}
+
+.title {
+	text-align: center;
+	color: white;
+}
+
+.introContainer {
+	padding: 1em;
+}
+
+#introTextContainer {
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+.introText {
+	text-align: center;
+	vertical-align: middle;
+}
+
+.contentContainer {
+	padding-left: 5%;
+	padding-right: 7.5%;
+}
+
+.content {
+	padding: 0.5em;
+	border-top: solid 1px black;
+}
+
+input {
+	height: 2.5em;
+	width: 20em;
+	border-radius: 0.5em;
+	border: solid 1px black;
+}
+
+.button {
+	background: #328CC1;
+	border: none;
+	font-weight: bold;
+}

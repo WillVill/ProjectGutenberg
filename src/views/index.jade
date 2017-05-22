@@ -1,8 +1,42 @@
 html(lang='en')
-	head
-	body
-		h1 YOLO
-		p Cities
-			ul
-				li: p Kurwakistan
-				li: p Kurwapolis
+    head
+        link(href='../styles/styles.css', rel='stylesheet')
+    body
+        .pageContainer
+            .titleContainer
+                h1.title Welcome to our Gutenberg Project book miner.
+
+            .introContainer
+                #introTextContainer
+                    h3.introText Here you can execute 4 distinct queries that will find information from all books porvided by the Gutenberg project. These queries will be executed using two seperate databases, one being Mongo and the other Neo4J. The execution times are then shown and compared.
+
+            .contentContainer 
+                .content
+                    h3 Book given, I should see a map with all cities mentioned in the book plotted on a map.
+                    input#bookToCity.textInput(placeholder="Type book title")
+                    br
+                    br
+                    input.button#bookToCityButton(type="submit",value="Get mentioned cities")
+                
+                .content
+                    h3 City given, I can get the books mentioning the cities and authors of the books.
+                    input#cityToBookAuthor.textInput(placeholder="Type city name")
+                    br
+                    br
+                    input.button#cityToBookAuthorButton(type="submit",value="Get books and author")
+                
+                .content
+                    h3 City given, books mentioning a city within the vicinity of 500 km are returned.
+                    input#cityToVicinity.textInput(placeholder="Type city name")
+                    br
+                    br
+                    input.button#cityToVicinityButton(type="submit",value="Get nearby cities")
+                
+                .content
+                    h3 Author given, I should see the books he wrote and the cities plotted.
+                    input#authorToBookCities.textInput(placeholder="Type author full name")
+                    br
+                    br
+                    input.button#authorToBookCitiesButton(type="submit",value="Get books and cities")
+
+    script(type="text/javascript" src="../js/requests.js")

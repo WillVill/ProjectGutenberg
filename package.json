@@ -2,9 +2,9 @@
   "name": "project_gutenberg_geolocations",
   "version": "1.0.0",
   "description": "Geo locating all cities mentioned in Project Gutenberg books with MongoDB and Neo4J",
-  "main": "app.js",
+  "main": "server/app.js",
   "scripts": {
-    "start": "nodemon app.js --exec babel-node — presets es2015",
+    "start": "nodemon server/app.js --exec babel-node — presets es2015",
     "test": "babel-node node_modules/.bin/cucumber-js"
   },
   "repository": {
