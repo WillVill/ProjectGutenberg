@@ -1,8 +1,8 @@
 var fs = require('fs');
 var mongoose = require('mongoose');
-var config = require('../../../config.js');
+var config = require('../config.js');
 var Papa = require('papaparse');
-var bookSchema = require('../../models/book.js').Book;
+var bookSchema = require('../server/models/book.js').Book;
 var Book = mongoose.model('Book', bookSchema);
 
 function connect() {
@@ -11,7 +11,7 @@ function connect() {
 
 function addBooksToDB() {
     // get scraped cities from all the books (fileName,title,author,geos)
-    var bookMetadata = fs.readFileSync('../../../book_data.csv', 'utf8');
+    var bookMetadata = fs.readFileSync('../book_data.csv', 'utf8');
     connect();
     var db = mongoose.connection;
 
