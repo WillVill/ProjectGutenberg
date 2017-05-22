@@ -2,9 +2,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var bookSchema = new Schema({
+    fileName: String,
 	title: String,
 	author: String,
-	geo: Number
+	geos: [{geo: Number}]
 });
 
 var Book = mongoose.model('Book', bookSchema);
