@@ -61,8 +61,10 @@ input {
 }
 
 .resultContainer {
+	vertical-align: top;
 	display: inline-block;
 	overflow-x: auto;
+	padding-left: 2em;
 }
 
 table {

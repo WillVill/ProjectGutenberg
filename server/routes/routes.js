@@ -24,6 +24,7 @@ router.get('/api/book/:book', (req, res, next) => {
 			return Promise.all(_promises);
 		})
 		.then(data => {
+			var t2 = new Date();
 			var cities = [];
 			data.forEach(city => {
 			    cities.push(city[0]);
@@ -31,6 +32,8 @@ router.get('/api/book/:book', (req, res, next) => {
 			return cities;
 		})
 		.then(cities => {
+			var time = t2-t1;
+			console.log("time: "+ time);
 			res.json(cities);
 		})
 		.catch(err => {
@@ -76,12 +79,47 @@ router.get('/api/geolocation/:city', function (req, res, next) {
 
 router.get('/api/author/:author', function (req, res, next) {
 	var author = req.params.author;
-	console.log("author", author);
 	var t1 = new Date();
-	var t2 = new Date();
+	var t2;
+	var booksWritten;
+
+	Book.find({author: author})
+		.then(books => {
+			booksWritten = books;
+			var cityGeos = [];
+			books.forEach(book => {
+				for (var i = book.geos.length - 1; i >= 0; i--) {
+					cityGeos.push(book.geos[i]);
+				}
+			})
+			return cityGeos;
+		})
+		.then(geos => {
+			let _promises = [];
+
+			for (var i = geos.length - 1; i >= 0; i--) {
+				_promises.push(City.find({geo: geos[i].geo}));
+			}
+			return Promise.all(_promises);
+		})
+		.then(data => {
+			t2 = new Date();
+			var cities = [];
+			data.forEach(city => {
+			    cities.push(city[0]);
+			});
+			return cities;
+		}).then(cities => {
+			var time = t2-t1;
+			console.log("time: "+ time);
+			res.json({cities: cities, books: booksWritten});
+		})
+		.catch(err => {
+			console.log("error", err);
+			res.status(500).json({error: err});
+		});
 
 	res.setHeader('Content-Type', 'application/json')
-	res.json(books);
 });
 
 module.exports = router;
