@@ -53,3 +53,32 @@ input {
 	border: none;
 	font-weight: bold;
 }
+
+.inputContainer {
+	vertical-align: top;
+	display: inline-block;
+	padding-right: 2em;
+}
+
+.resultContainer {
+	display: inline-block;
+	overflow-x: auto;
+}
+
+table {
+	border-collapse: collapse;
+    width: 100%;
+}
+
+
+th, td {
+	text-align: left;
+    padding: 8px;
+}
+
+.bookCityHeader {
+	background: #0B3C5D;
+
+}
+
+tr:nth-child(even){background-color: #f2f2f2}

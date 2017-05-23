@@ -4,7 +4,7 @@ html(lang='en')
     body
         .pageContainer
             .titleContainer
-                h1.title Welcome to our Gutenberg Project book miner
+                h1.title Welcome to our Project Gutenberg book miner
 
             .introContainer
                 #introTextContainer
@@ -13,30 +13,43 @@ html(lang='en')
             .contentContainer 
                 .content
                     h3 Book given, I should see a map with all cities mentioned in the book plotted on a map.
-                    input#bookToCity.textInput(placeholder="Type book title")
-                    br
-                    br
-                    input.button#bookToCityButton(type="submit",value="Get mentioned cities")
+                    .inputContainer
+                        input#bookToCity.textInput(placeholder="Type book title")
+                        br
+                        br
+                        input.button#bookToCityButton(type="submit",value="Get mentioned cities")
+                    .resultContainer
+                        #citiesTable
                 
                 .content
                     h3 City given, I can get the books mentioning the cities and authors of the books.
-                    input#cityToBookAuthor.textInput(placeholder="Type city name")
-                    br
-                    br
-                    input.button#cityToBookAuthorButton(type="submit",value="Get books and author")
+                    .inputContainer
+                        input#cityToBookAuthor.textInput(placeholder="Type city name")
+                        br
+                        br
+                        input.button#cityToBookAuthorButton(type="submit",value="Get books and author")
+                    .resultContainer
+                        #bookAuthorTable
                 
                 .content
-                    h3 City given, books mentioning a city within the vicinity of 500 km are returned.
-                    input#cityToVicinity.textInput(placeholder="Type city name")
-                    br
-                    br
-                    input.button#cityToVicinityButton(type="submit",value="Get nearby cities")
+                    h3 City given, books mentioning a city within the vicinity of 50 km are returned.
+                    .inputContainer
+                        input#cityToVicinity.textInput(placeholder="Type city name")
+                        br
+                        br
+                        input.button#cityToVicinityButton(type="submit",value="Get nearby cities")
+                    .resultContainer
+                        #bookAuthorCityTable
                 
                 .content
                     h3 Author given, I should see the books he wrote and the cities plotted.
-                    input#authorToBookCities.textInput(placeholder="Type author full name")
-                    br
-                    br
-                    input.button#authorToBookCitiesButton(type="submit",value="Get books and cities")
+                    .inputContainer
+                        input#authorToBookCities.textInput(placeholder="Type author full name")
+                        br
+                        br
+                        input.button#authorToBookCitiesButton(type="submit",value="Get books and cities")
+                    .resultContainer
+                        #bookCitiesTable
 
+    script(type="text/javascript" src="../js/tableGenerator.js")
     script(type="text/javascript" src="../js/requests.js")
