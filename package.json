@@ -26,10 +26,13 @@
   "dependencies": {
     "body-parser": "^1.17.1",
     "colors": "^1.1.2",
+    "config": "^1.26.1",
     "express": "^4.15.2",
     "jade": "^1.11.0",
     "mongodb": "^2.2.26",
     "mongoose": "^4.9.8",
+    "neo4j": "^2.0.0-RC2",
+    "neo4j-driver": "^1.3.0",
     "papaparse": "^4.3.2"
   },
   "devDependencies": {

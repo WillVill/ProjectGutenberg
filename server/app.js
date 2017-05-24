@@ -6,7 +6,9 @@ mongoose.Promise = require('bluebird');
 var morgan = require('morgan');
 
 var Book = require('./models/book');
-var routes = require('./routes/routes');
+var mongoRoutes = require('./routes/mongoRoutes');
+var neoRoutes = require('./routes/neoRoutes');
+var index = require('./routes/index');
 var config = require('../config.js');
 
 var app = express();
@@ -14,12 +16,17 @@ var port = process.env.PORT || 8080;
 
 app.use(morgan('dev')); // log requests to the console
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(routes);
-app.use(express.static(path.join(__dirname, '../src')));
 app.set('views', path.join(__dirname, '../src/views'));
 app.set('view engine', 'jade');
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.use(express.static(path.join(__dirname, '../src')));
+
+app.use('/api/mongodb', mongoRoutes);
+app.use('/api/neo4j', neoRoutes);
+app.use(index);
 
 // connect to Mongo db
 mongoose.connect(config.db.mongodb);

@@ -9,7 +9,7 @@ function getCitiesFromBook() {
         return;
     }
 
-    let endpoint = '/book/' + book;
+    let endpoint = '/mongodb/book/' + book;
     let url = baseUrl + endpoint;
     let xhr = new XMLHttpRequest();
 
@@ -39,7 +39,7 @@ function getAuthorAndBooks() {
         return;
     }
 
-    let endpoint = '/city/' + city;
+    let endpoint = '/mongodb/city/' + city;
     let url = baseUrl + endpoint;
     let xhr = new XMLHttpRequest();
 
@@ -70,7 +70,7 @@ function getVicinityCities() {
         return;
     }
 
-    let endpoint = '/geolocation/' + city;
+    let endpoint = '/mongodb/geolocation/' + city;
     let url = baseUrl + endpoint;
     let xhr = new XMLHttpRequest();
 
@@ -101,7 +101,7 @@ function getCitiesAndBooks() {
         return;
     }
 
-    let endpoint = '/author/' + author;
+    let endpoint = '/mongodb/author/' + author;
     let url = baseUrl + endpoint;
     let xhr = new XMLHttpRequest();
 
