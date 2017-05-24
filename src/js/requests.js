@@ -20,7 +20,7 @@ function getCitiesFromBook() {
         if (xhr.status === 200 || xhr.status === 204) {
             var response = xhr.response;
             if (response.length === 0) return;
-            cityTableGenerator(response);
+            cityTableGenerator(response, 'citiesTable');
         } else {
             console.log("error with request");
         }
@@ -82,7 +82,7 @@ function getVicinityCities() {
             var response = xhr.response;
             console.log("response", response);
             if (response.length === 0) return;
-            bookAuthorCityTableGenerator(response, 'bookAuthorCityTable');
+            bookAuthorCityTableGenerator(response);
         } else {
             console.log("error with request");
         }
@@ -113,7 +113,8 @@ function getCitiesAndBooks() {
             var response = xhr.response;
             console.log("response", response);
             if (response.length === 0) return;
-            bookCitiesTableGenerator(response, 'bookCitiesTable');
+            cityTableGenerator(response.cities, 'bookCitiesTable');
+            bookTableGenerator(response.books);
         } else {
             console.log("error with request");
         }

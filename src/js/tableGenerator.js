@@ -1,4 +1,4 @@
-function cityTableGenerator(data) {
+function cityTableGenerator(data, tableId) {
     var length = data.length;
 
     var myTable= "<table id='bookTable'>";
@@ -12,7 +12,7 @@ function cityTableGenerator(data) {
     })
        myTable+="</table>";
 
-    document.getElementById('citiesTable').innerHTML = myTable;
+    document.getElementById(tableId).innerHTML = myTable;
 }
 
 function bookAuthorTableGenerator(data) {
@@ -49,19 +49,16 @@ function bookAuthorCityTableGenerator(data) {
     document.getElementById('bookAuthorCityTable').innerHTML = myTable;
 }
 
-function bookCitiesTableGenerator(data) {
+function bookTableGenerator(data) {
     var length = data.length;
 
     var myTable= "<table id='bookTable'>";
-        myTable+="<tr><th class='bookCityHeader'>" + data.city.name + "</td>";
-        myTable+= "<th class='tableHeader'>" + data.book.name + "</td></tr>";
+        myTable+= "<tr><th class='tableHeader'>Book</td></tr>";
 
-      for (var i=0; i<length; i++) {
-        myTable+="<tr>";
-        myTable+="<td class='tableData'>" + data[i].name + "</td>";
-        myTable+="<td class='tableData'>" + data[i].countryCode + "</td></tr>";
-      }  
+      data.forEach(book =>{
+        myTable+="<tr><td class='tableData'>" + book.title + "</td></tr>";
+      })
        myTable+="</table>";
 
-    document.getElementById('bookCitiesTable').innerHTML = myTable;
+    document.getElementById('booksTable').innerHTML = myTable;
 }
