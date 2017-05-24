@@ -5,8 +5,7 @@ var citySchema = new Schema({
     geo: Number,
 	name: String,
     asciiName: String,
-	longitude: Number,
-    latitude: Number,
+    loc: [Number],
     countryCode: String
 });
 
