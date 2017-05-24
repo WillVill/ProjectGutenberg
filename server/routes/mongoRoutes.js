@@ -1,14 +1,10 @@
 var express = require('express');
 var router = express.Router();
+
 var Book = require('../models/book.js');
 var City = require('../models/city.js');
 
-
-router.get('/', function (req, res, next) {
-	res.render('index');
-});
-
-router.get('/api/book/:book', (req, res, next) => {
+router.get('/book/:book', (req, res, next) => {
 	var t1 = new Date();
 	var t2;
 
@@ -44,7 +40,7 @@ router.get('/api/book/:book', (req, res, next) => {
 
 
 
-router.get('/api/city/:city', function (req, res, next) {
+router.get('/city/:city', function (req, res, next) {
 	var city = req.params.city;
 	console.log("city", city);
 	var t1 = new Date();
@@ -67,7 +63,7 @@ router.get('/api/city/:city', function (req, res, next) {
 	});
 });
 
-router.get('/api/geolocation/:city', function (req, res, next) {
+router.get('/geolocation/:city', function (req, res, next) {
 	var city = req.params.city;
 	console.log("geo", city);
 	var t1 = new Date();
@@ -77,7 +73,7 @@ router.get('/api/geolocation/:city', function (req, res, next) {
 	res.json(books);
 });
 
-router.get('/api/author/:author', function (req, res, next) {
+router.get('/author/:author', function (req, res, next) {
 	var author = req.params.author;
 	var t1 = new Date();
 	var t2;
@@ -119,7 +115,6 @@ router.get('/api/author/:author', function (req, res, next) {
 			res.status(500).json({error: err});
 		});
 
-	res.setHeader('Content-Type', 'application/json')
-});
+	res.setHeader('Content-Type', 'application/json')});
 
 module.exports = router;
