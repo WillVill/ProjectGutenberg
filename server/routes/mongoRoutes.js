@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-var Book = require('../models/book.js');
-var City = require('../models/city.js');
+var Book = require('../models/bookMongoDB.js');
+var City = require('../models/cityMongoDB.js');
 
 router.get('/book/:book', (req, res, next) => {
 	var t1 = new Date();
