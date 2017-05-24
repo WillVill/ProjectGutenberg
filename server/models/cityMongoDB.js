@@ -9,7 +9,7 @@ var citySchema = new Schema({
     	type: [Number],
     	index: '2dsphere'
     },
-    countryCode: String,
+    countryCode: String
 });
 
 var City = mongoose.model('City', citySchema);
