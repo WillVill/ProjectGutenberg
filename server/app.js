@@ -23,8 +23,10 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, '../src')));
 
-app.use('/api/mongodb', mongoRoutes);
-app.use('/api/neo4j', neoRoutes);
+// app.use('/static', express.static(path.join(__dirname, '../src')));
+
+app.use('/mongodb', mongoRoutes);
+app.use('/neo4j', neoRoutes);
 app.use(index);
 
 // connect to Mongo db

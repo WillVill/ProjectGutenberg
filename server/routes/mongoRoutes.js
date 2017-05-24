@@ -10,17 +10,23 @@ router.get('/book/:book', (req, res, next) => {
 
 	Book.find({title: req.params.book})
 		.then(book => {
+			console.log("book", book);
+
 			return book[0].geos;
 		})
 		.then(geolocations => {
+			console.log("geoloc", geolocations);
 			let _promises = [];
-			geolocations.map(geo => {
-				_promises.push(City.find({geo: geo.geo}))
-			})
+			for (var i = geolocations.length - 1; i >= 0; i--) {
+				_promises.push(City.find({geo: geolocations[i]}))
+			}
+			// geolocations.map(geo => {
+			// 	_promises.push(City.find({geo: geo.geo}))
+			// })
 			return Promise.all(_promises);
 		})
 		.then(data => {
-			var t2 = new Date();
+			t2 = new Date();
 			var cities = [];
 			data.forEach(city => {
 			    cities.push(city[0]);
@@ -30,7 +36,7 @@ router.get('/book/:book', (req, res, next) => {
 		.then(cities => {
 			var time = t2-t1;
 			console.log("time: "+ time);
-			res.json(cities);
+			res.json({cities: cities, time: time});
 		})
 		.catch(err => {
 			console.log("error", err);
@@ -38,39 +44,64 @@ router.get('/book/:book', (req, res, next) => {
 		});
 });
 
-
-
 router.get('/city/:city', function (req, res, next) {
 	var city = req.params.city;
-	console.log("city", city);
 	var t1 = new Date();
+	var t2;
 
-	Book.find({title: book}, function (err, book) {
-		if (err) console.log("Error: ", err);
-
-		if(!book || book.length === 0) {
-			res.json([]);
-			return;
-		}
-
-		var t2 = new Date();
-		var time = t2-t1;
-		var author = book[0].author;
-		var title = book[0].title;
-		
-		res.setHeader('Content-Type', 'application/json')
-		res.json(books);
-	});
+	City.find({name: city})
+		.then(city => {
+			return Book.find({geos: city[0].geo});
+		})
+		.then(books => {
+			t2 = new Date();
+			var time = t2-t1;
+			console.log("time: "+ time);
+			res.json({books: books, time: time});
+		})
+		.catch(err => {
+			console.log("error", err);
+			res.status(500).json({error: err});
+		});
 });
 
-router.get('/geolocation/:city', function (req, res, next) {
-	var city = req.params.city;
-	console.log("geo", city);
+router.get('/geolocation/:geo/:distance', function (req, res, next) {
+	var geo = req.params.geo;
+	var distance = req.params.distance;
+	console.log
 	var t1 = new Date();
-	var t2 = new Date();
+	var t2;
 
-	res.setHeader('Content-Type', 'application/json')
-	res.json(books);
+	City.find({geo: geo})
+		.then(city => {
+			console.log("city", city[0].loc, distance);
+			return City.find({  
+				loc: {
+			      $near: {
+			        $geometry: {
+			           type: "Point" ,
+			           coordinates: city[0].loc
+			        },
+			        $maxDistance: distance
+			      }
+			    }
+				// loc: {
+				//     $near: city[0].loc,
+				// 	$maxDistance: distance
+			 //    },
+			})
+		})
+		.then(cities => {
+			console.log("cities", cities);
+			t2 = new Date();
+			var time = t2-t1;
+			console.log("time: "+ time);
+			res.json({cities: cities, time: time});
+		})
+		.catch(err => {
+			console.log("error", err);
+			res.status(500).json({error: err});
+		});
 });
 
 router.get('/author/:author', function (req, res, next) {
@@ -78,6 +109,7 @@ router.get('/author/:author', function (req, res, next) {
 	var t1 = new Date();
 	var t2;
 	var booksWritten;
+	res.setHeader('Content-Type', 'application/json')
 
 	Book.find({author: author})
 		.then(books => {
@@ -92,10 +124,12 @@ router.get('/author/:author', function (req, res, next) {
 		})
 		.then(geos => {
 			let _promises = [];
-
 			for (var i = geos.length - 1; i >= 0; i--) {
-				_promises.push(City.find({geo: geos[i].geo}));
+				_promises.push(City.find({geo: geos[i]}));
 			}
+			// for (var i = geos.length - 1; i >= 0; i--) {
+			// 	_promises.push(City.find({geo: geos[i].geo}));
+			// }
 			return Promise.all(_promises);
 		})
 		.then(data => {
@@ -108,13 +142,12 @@ router.get('/author/:author', function (req, res, next) {
 		}).then(cities => {
 			var time = t2-t1;
 			console.log("time: "+ time);
-			res.json({cities: cities, books: booksWritten});
+			res.json({cities: cities, books: booksWritten, time: time});
 		})
 		.catch(err => {
 			console.log("error", err);
 			res.status(500).json({error: err});
 		});
-
-	res.setHeader('Content-Type', 'application/json')});
+});
 
 module.exports = router;

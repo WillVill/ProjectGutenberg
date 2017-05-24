@@ -1,6 +1,4 @@
-let baseUrl = 'http://localhost:8080/api';
-
-var books = [{title: "title", author: "author"}, {title: "title1", author: "author1"}];
+let baseUrl = 'http://localhost:8080';
 
 function getCitiesFromBook() {
     var book = document.getElementById('bookToCity').value;
@@ -19,8 +17,10 @@ function getCitiesFromBook() {
     xhr.onload = function() {   
         if (xhr.status === 200 || xhr.status === 204) {
             var response = xhr.response;
+            console.log("response", response);
             if (response.length === 0) return;
-            cityTableGenerator(response, 'citiesTable');
+            cityTableGenerator(response.cities, 'citiesTable');
+            mongoTimeBenchMarkGenerator("citiesTable", response.time)
         } else {
             console.log("error with request");
         }
@@ -51,7 +51,8 @@ function getAuthorAndBooks() {
             var response = xhr.response;
             console.log("response", response);
             if (response.length === 0) return;
-            bookAuthorTableGenerator(response);
+            bookAuthorTableGenerator(response.books);
+            mongoTimeBenchMarkGenerator("bookAuthorTable", response.time)
         } else {
             console.log("error with request");
         }
@@ -65,12 +66,13 @@ elem.addEventListener('click', getAuthorAndBooks);
 
 function getVicinityCities() {
     var city = document.getElementById('cityToVicinity').value;
+    var distance = document.getElementById('cityToVicinityDistance').value;
 
     if (!city) {
         return;
     }
 
-    let endpoint = '/mongodb/geolocation/' + city;
+    let endpoint = '/mongodb/geolocation/' + city + '/' + distance;
     let url = baseUrl + endpoint;
     let xhr = new XMLHttpRequest();
 
@@ -81,8 +83,10 @@ function getVicinityCities() {
         if (xhr.status === 200 || xhr.status === 204) {
             var response = xhr.response;
             console.log("response", response);
-            if (response.length === 0) return;
-            bookAuthorCityTableGenerator(response);
+            // if (response.cities.length === 0) return;
+            cityTableGenerator(response.cities, 'citiesVicinityTable');
+            mongoTimeBenchMarkGenerator("citiesVicinityTable", response.time)
+
         } else {
             console.log("error with request");
         }
@@ -115,6 +119,7 @@ function getCitiesAndBooks() {
             if (response.length === 0) return;
             cityTableGenerator(response.cities, 'bookCitiesTable');
             bookTableGenerator(response.books);
+            mongoTimeBenchMarkGenerator("bookCitiesTable", response.time)
         } else {
             console.log("error with request");
         }

@@ -4,6 +4,7 @@ var Papa = require('papaparse');
 var utils = require('./utils.js');
 
 var mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
 var bookSchema = require('../server/models/bookMongoDB.js').Book;
 var Book = mongoose.model('Book', bookSchema);
 var citySchema = require('../server/models/cityMongoDB.js').City;
@@ -83,5 +84,5 @@ function addCitiesToDB() {
     });
  }
 
-// addCitiesToDB();
-addBooksToDB();
+addCitiesToDB();
+// addBooksToDB();

@@ -1,11 +1,10 @@
 function cityTableGenerator(data, tableId) {
-    var length = data.length;
-
     var myTable= "<table id='bookTable'>";
         myTable+="<tr><th class='tableHeader'>City</td>";
         myTable+= "<th class='tableHeader'>Country Code</td></tr>";
-
     data.forEach(city =>{
+        console.log("city", city);
+        if(!city) return;
         myTable+="<tr>";
         myTable+="<td class='tableData'>" + city.name + "</td>";
         myTable+="<td class='tableData'>" + city.countryCode + "</td></tr>";
@@ -22,11 +21,15 @@ function bookAuthorTableGenerator(data) {
         myTable+="<tr><th class='tableHeader'>Title</td>";
         myTable+= "<th class='tableHeader'>Author</td></tr>";
 
-      for (var i=0; i<length; i++) {
+      // for (var i=0; i<length; i++) {
+      data.forEach(book =>{
+        if(!book) return;
         myTable+="<tr>";
-        myTable+="<td class='tableData'>" + data[i].title + "</td>";
-        myTable+="<td class='tableData'>" + data[i].author + "</td></tr>";
-      }  
+        myTable+="<td class='tableData'>" + book.title + "</td>";
+        myTable+="<td class='tableData'>" + book.author + "</td></tr>";
+        // myTable+="<td class='tableData'>" + data[i].title + "</td>";
+        // myTable+="<td class='tableData'>" + data[i].author + "</td></tr>";
+      }) 
        myTable+="</table>";
 
     document.getElementById('bookAuthorTable').innerHTML = myTable;
@@ -56,9 +59,30 @@ function bookTableGenerator(data) {
         myTable+= "<tr><th class='tableHeader'>Book</td></tr>";
 
       data.forEach(book =>{
+        if(!book) return;
         myTable+="<tr><td class='tableData'>" + book.title + "</td></tr>";
       })
        myTable+="</table>";
 
     document.getElementById('booksTable').innerHTML = myTable;
+}
+
+function mongoTimeBenchMarkGenerator(db, time) {
+    var myTable= "<table>";
+        myTable+= "<tr><th class='dbTitle'>Mongo</th></td>"
+        myTable+= "<tr><th class='tableHeader'>Time(ms)</td></tr>";
+        myTable+="<tr><td class='tableData'>" + time + "</td></tr>";
+        myTable+="</table>";
+
+    document.getElementById(db + "Benchmark").innerHTML = myTable;
+}
+
+function neoTimeBenchMarkGenerator(db, time) {
+    var myTable= "<table>";
+        myTable+= "<tr><th class='dbTitle'>Neo4J</th></td>"
+        myTable+= "<tr><th class='tableHeader'>Time(ms)</td></tr>";
+        myTable+="<tr><td class='tableData'>" + time + "</td></tr>";
+        myTable+="</table>";
+
+    document.getElementById(db + "Benchmark").innerHTML = myTable;
 }
