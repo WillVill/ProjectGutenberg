@@ -25,5 +25,9 @@ module.exports = {
 
     getProgressPercentage(a, b) {
         return Math.max( a / b * 100, 0 ).toFixed(2) + '%';
+    },
+
+    stringIntoArray(geoString) {
+        return geoString.split('|').slice(0, -1);
     }
 }

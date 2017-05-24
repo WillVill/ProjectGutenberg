@@ -1,11 +1,12 @@
 var fs = require('fs');
 var config = require('../config.js');
 var Papa = require('papaparse');
+var utils = require('./utils.js');
 
 var mongoose = require('mongoose');
-var bookSchema = require('../server/models/book.js').Book;
+var bookSchema = require('../server/models/bookMongoDB.js').Book;
 var Book = mongoose.model('Book', bookSchema);
-var citySchema = require('../server/models/city.js').City;
+var citySchema = require('../server/models/cityMongoDB.js').City;
 var City = mongoose.model('City', citySchema);
 
 function getConnection() {
@@ -28,7 +29,7 @@ function addBooksToDB() {
                 title: row.data[0].title,
                 author: row.data[0].author,
             });
-            geoArr = stringIntoArray(row.data[0].geos);
+            geoArr = utils.stringIntoArray(row.data[0].geos);
             bookDoc.geos = geoArr
 
             bookDoc.save(function (err, bookDoc) {
@@ -40,10 +41,6 @@ function addBooksToDB() {
             db.close();
         }
     });
-}
-
-function stringIntoArray(geoString) {
-    return geoString.split('|').slice(0, -1);
 }
 
 /**
