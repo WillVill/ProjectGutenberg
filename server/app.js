@@ -5,7 +5,6 @@ var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 var morgan = require('morgan');
 
-var Book = require('./models/book');
 var mongoRoutes = require('./routes/mongoRoutes');
 var neoRoutes = require('./routes/neoRoutes');
 var index = require('./routes/index');
