@@ -7,11 +7,14 @@ const session = driver.getDriver();
 // Get cities by a book title
 router.get('/book/:book', (req, res, next) => {
     var title = req.params.book;
+    var t1 = new Date();
+    var t2;
 
     session
         .run('MATCH (b:Book {title: {titleParam}})-[:MENTIONES]->(c:City) RETURN c', {titleParam:title})
         .then(result => {
             var cities = [];
+            var t2 = new Date();
             session.close();
             result.records.forEach(record => {
                 cities.push(
@@ -21,7 +24,8 @@ router.get('/book/:book', (req, res, next) => {
             return cities;
         })
         .then(cities => {
-            res.json(cities);
+            var time = t2-t1;
+            res.json({time: time});
         })
         .catch(err => {
             console.log("error", err);
@@ -32,11 +36,13 @@ router.get('/book/:book', (req, res, next) => {
 // City given, I can get the books mentioning the cities and authors of the books
 router.get('/city/:city', (req, res, next) => {
     var name = req.params.city;
+    var t1 = new Date();
 
     session
         .run('MATCH (c:City {name: {nameParam}})<-[:MENTIONES]-(b:Book) RETURN b', {nameParam:name})
         .then(result => {
             var books = [];
+            var t2 = new Date();
             session.close();
             result.records.forEach(record => {
                 books.push({
@@ -47,7 +53,8 @@ router.get('/city/:city', (req, res, next) => {
             return books;
         })
         .then(books => {
-            res.json(books);
+            var time = t2-t1;
+            res.json({time: time});
         })
         .catch(err => {
             console.log("error", err);
@@ -58,6 +65,7 @@ router.get('/city/:city', (req, res, next) => {
 // Author given, I should see the books he wrote and the cities plotted
 router.get('/author/:author', (req, res, next) => {
     var author = req.params.author;
+    var t1 = new Date();
 
     session
         .run('MATCH (b:Book {author: {authorParam}})-[:MENTIONES]->(c:City) ' +
@@ -66,12 +74,14 @@ router.get('/author/:author', (req, res, next) => {
             'RETURN {books: collect(containerNode)}',
             {authorParam:author})
         .then(result => {
+            var t2 = new Date();
             const booksAndCities = result.records[0]._fields[0];
             session.close();
             return booksAndCities;
         })
         .then(booksAndCities => {
-            res.json(booksAndCities);
+            var time = t2-t1;
+            res.json({time: time});
         })
         .catch(err => {
             console.log("error", err);
@@ -82,10 +92,12 @@ router.get('/author/:author', (req, res, next) => {
 // Given a geolocation, your application lists all books mentioning a city in vicinity of the given geolocation.
 router.get('/geolocation/:geo', (req, res, next) => {
     var geo = req.params.geo;
+    var t1 = new Date();
 
     session
         .run('MATCH (c:City {geo: {geoParam}})<-[:MENTIONES]-(b:Book) RETURN b, c', {geoParam:geo})
         .then(result => {
+            var t2 = new Date();
             var books = [];
             var obj = {};
             session.close();
@@ -104,7 +116,8 @@ router.get('/geolocation/:geo', (req, res, next) => {
             return obj;
         })
         .then(books => {
-            res.json(books);
+            var time = t2-t1;
+            res.json({time: time});
         })
         .catch(err => {
             console.log("error", err);
