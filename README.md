@@ -1,5 +1,8 @@
 # The Semester Project - Databases & Testing
 
+LINK TO REPORT:
+https://docs.google.com/document/d/1utovo7CZlKIITRk4Kb4bqNXp5iRSdW3goeqGktyqRuk/edit?usp=sharing
+
 ### Project Idea:
 The project is about creating JavaScript application that allows to figure out which cities are mentioned in books from the Project Gutenberg. These cities will be stored in two different databases (MongoDB, Neo4j). For this project we have the following learning goals.
 
