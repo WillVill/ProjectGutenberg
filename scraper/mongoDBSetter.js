@@ -22,14 +22,15 @@ function addBooksToDB() {
         header: true,
         dynamicTyping: true,
         step: function(row) {
-            var arr = stringIntoArray(row.data[0].geos);
+            var geoArr = [];
 
             var bookDoc = new Book({
                 fileName: row.data[0].fileName,
                 title: row.data[0].title,
                 author: row.data[0].author,
-                geos: arr
             });
+            geoArr.push(row.data[0].geos);
+            bookDoc.geo = geoArr
 
             bookDoc.save(function (err, bookDoc) {
               if (err) return console.error(err);
@@ -58,7 +59,7 @@ function addCitiesToDB() {
         header: true,
         dynamicTyping: true,
         step: function(row) {
-            var arr = [];
+            var locArr = [];
 
             var cityDoc = new City({
                 geo: row.data[0].geo,
@@ -67,9 +68,9 @@ function addCitiesToDB() {
                 countryCode: row.data[0].countryCode,
             });
 
-            arr.push(row.data[0].longitude);
-            arr.push(row.data[0].latitude);
-            cityDoc.loc = arr;
+            locArr.push(row.data[0].longitude);
+            locArr.push(row.data[0].latitude);
+            cityDoc.loc = locArr;
 
             cityDoc.save(function (err, cityDoc) {
               if (err) return console.error(err);
@@ -82,18 +83,5 @@ function addCitiesToDB() {
     });
  }
 
-function stringIntoArray(geoString) {
-    var arr = geoString.split('|').slice(0, -1);
-    var arrObj = [];
-
-    arr.forEach(each => {
-        arrObj.push({
-            geo: each
-        });
-    });
-
-    return arrObj;
-}
-
-addCitiesToDB();
-
+// addCitiesToDB();
+addBooksToDB();

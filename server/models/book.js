@@ -5,7 +5,7 @@ var bookSchema = new Schema({
     fileName: String,
 	title: String,
 	author: String,
-	geos: [{geo: Number}]
+	geos: [Number]
 });
 
 var Book = mongoose.model('Book', bookSchema);
