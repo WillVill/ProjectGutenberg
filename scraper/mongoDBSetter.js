@@ -23,14 +23,13 @@ function addBooksToDB() {
         dynamicTyping: true,
         step: function(row) {
             var geoArr = [];
-
             var bookDoc = new Book({
                 fileName: row.data[0].fileName,
                 title: row.data[0].title,
                 author: row.data[0].author,
             });
-            geoArr.push(row.data[0].geos);
-            bookDoc.geo = geoArr
+            geoArr = stringIntoArray(row.data[0].geos);
+            bookDoc.geos = geoArr
 
             bookDoc.save(function (err, bookDoc) {
               if (err) return console.error(err);
@@ -41,6 +40,10 @@ function addBooksToDB() {
             db.close();
         }
     });
+}
+
+function stringIntoArray(geoString) {
+    return geoString.split('|').slice(0, -1);
 }
 
 /**
