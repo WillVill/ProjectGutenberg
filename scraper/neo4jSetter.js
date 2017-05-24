@@ -29,27 +29,63 @@ function addBooksToDB() {
         dynamicTyping: true,
         step: function(row) {
             var arr = stringIntoArray(row.data[0].geos);
+            var fileName = row.data[0].fileName;
+            var title = row.data[0].title;
+            var author = row.data[0].author;
 
-            Book.create({
-                fileName: row.data[0].fileName,
-                title: row.data[0].title,
-                author: row.data[0].author,
-                geos: arr
-            }, function(err, book) {
-                if (err) {
-                    console.log('something fucked up', err);
-                }
-            });
+            if (fileName && title && author) {
+                Book.create({
+                    fileName: fileName,
+                    title: title,
+                    author: author,
+                    geos: arr
+                }, function(err, book) {
+                    if (err) {
+                        console.log('something fucked up', err);
+                    }
+                });
+            }
         },
 
         complete: function() {
-            // after
         }
     });
 }
 
 function stringIntoArray(geoString) {
     return geoString.split('|').slice(0, -1);
+}
+
+function addManyBooksToDB() {
+    var bookMetadata = fs.readFileSync('../book_data.csv', 'utf8');
+    var books = '';
+
+    Papa.parse(bookMetadata, {
+        header: true,
+        dynamicTyping: true,
+        step: function(row) {
+
+            var arr = stringIntoArray(row.data[0].geos);
+            var fileName = row.data[0].fileName;
+            var title = row.data[0].title;
+            var author = row.data[0].author;
+
+            books += 'CREATE (:Book { fileName: ' + fileName + ', ' +
+                        'title: ' + title + ', ' +
+                        'author: ' + author + ', ' +
+                        'geos: ' + arr + '}) '
+                            
+        },
+
+        complete: function() {
+            console.log(books);
+            Book.createMany(books, function(err, book) {
+                if (err) {
+                    console.log('something fucked up', err);
+                }
+            })
+        }
+    });
 }
 
 addBooksToDB();

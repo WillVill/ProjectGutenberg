@@ -37,6 +37,20 @@ Book.create = function(props, callback) {
     });
 };
 
+Book.createMany = function(books, callback) {
+    var query = books; //(book:Book {props})
+
+    db.cypher({
+        query: query,
+    }, function(err, results) {
+        if (err) {
+            return callback(err);
+        }
+        // var book = new Book(results[0]['book']);
+        callback(null, 'book');
+    });
+}
+
 // Book.mention = function(props, callback) {
 //     var query = [
 //         'MATCH (b:Book {})'
