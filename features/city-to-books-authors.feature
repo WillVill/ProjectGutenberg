@@ -9,7 +9,7 @@ Background
 
 	Scenario: City given, I can get the books mentioning the cities and authors of the books.
 		Given I am a user of the web application
-		When I select city "Paris"
-		And I click "Get books and author"
+		When I select city Paris
+		And I click cityToBookAuthorButton
 		Then I should see the books mentioning the city
 		And I should see the authors of the books

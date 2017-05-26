@@ -5,9 +5,11 @@ html(lang='en')
         script(src="http://maps.google.com/maps/api/js?key=AIzaSyAs4wpCq2-xBNwPTs6IHo8Cqyv6OjTjEB4" 
         type="text/javascript")
     body
+
+        h1 Welcome to our Project Gutenberg book miner
         .pageContainer
             .titleContainer
-                h1.title Welcome to our Project Gutenberg book miner
+                h1.title(name="title") Welcome to our Project Gutenberg book miner
 
             .introContainer
                 #introTextContainer
@@ -20,7 +22,7 @@ html(lang='en')
                         input#bookToCity.textInput(placeholder="Type book title")
                         br
                         br
-                        input.button#bookToCityButton(type="submit",value="Get mentioned cities")
+                        input.button#bookToCityButton(name="bookToCityButton", type="submit",value="Get mentioned cities")
                     .resultContainer
                         #citiesTable
                     .benchmarkTableContainer
@@ -34,7 +36,7 @@ html(lang='en')
                         input#cityToBookAuthor.textInput(placeholder="Type city name")
                         br
                         br
-                        input.button#cityToBookAuthorButton(type="submit",value="Get books and author")
+                        input.button#cityToBookAuthorButton(name="bookToCityButton", type="submit",value="Get books and author")
                     .resultContainer
                         #bookAuthorTable
                     .benchmarkTableContainer
@@ -49,7 +51,7 @@ html(lang='en')
                         input#cityToVicinityDistance.textInput(placeholder="Type a max distance")
                         br
                         br
-                        input.button#cityToVicinityButton(type="submit",value="Get nearby cities")
+                        input.button#cityToVicinityButton(name="bookToCityButton", type="submit",value="Get nearby cities")
                     .resultContainer
                         #citiesVicinityTable
                     .benchmarkTableContainer
@@ -63,7 +65,7 @@ html(lang='en')
                         input#authorToBookCities.textInput(placeholder="Type author full name")
                         br
                         br
-                        input.button#authorToBookCitiesButton(type="submit",value="Get books and cities")
+                        input.button#authorToBookCitiesButton(name="bookToCityButton", type="submit",value="Get books and cities")
                     .resultContainer
                         #booksTable
                     .resultContainer

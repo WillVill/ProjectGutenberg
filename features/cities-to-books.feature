@@ -8,7 +8,7 @@ Background
 
 	Scenario: Book given, I should see a map with all cities mentioned in the book plotted on a map.
 		Given I am a user of the web application
-		When I select book "John Book 1"
-		And I click "Get mentioned cities"
+		When I select book Around the World in 80 Days
+		And I click bookToCityButton
 		Then I should see the cities mentioned in the books
 		And I should see the cities plotted on a map

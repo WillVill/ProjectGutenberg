@@ -8,8 +8,8 @@ Background
 
 	Scenario: Author given, I should see the books he wrote and the cities plotted.
 		Given I am a user of the web application
-		When I select author "John"
-		And I click "Get books and cities"
+		When I select author Bruce Sterling
+		And I click authorToBookCitiesButton
 		Then I should see the books written by the author
 		And I should see the cities mentioned in the books
 		And I should see the cities plotted on a map
