@@ -55,7 +55,7 @@ defineSupportCode(function({setWorldConstructor, Given, When, Then}) {
 
     Then('I should see the cities mentioned in the books', function(callback) {
         setTimeout(function(){
-            browser.assert.element("#citiesTableTable");
+            browser.assert.element("#cityTable");
             callback();
         }, 4*1000)
     });
@@ -76,7 +76,7 @@ defineSupportCode(function({setWorldConstructor, Given, When, Then}) {
 
     Then('I should see a map with nearby cities', function(callback) {
         setTimeout(function(){
-            browser.assert.element("#citiesVicinityTableTable");
+            browser.assert.element("#citiesVicinityTable");
             callback();
         }, 4*1000)
     });

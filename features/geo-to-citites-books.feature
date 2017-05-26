@@ -11,4 +11,3 @@ Background
 		When I select geo-city Paris
 		And I click cityToVicinityButton
 		Then I should see a map with nearby cities
-		And I should see list of the books that mentioned the cities

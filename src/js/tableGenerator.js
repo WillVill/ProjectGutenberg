@@ -1,5 +1,5 @@
 function cityTableGenerator(data, tableId) {
-    var myTable= "<table id="tableId+'Table'>";
+    var myTable= "<table id='cityTable'>";
         myTable+="<tr><th class='tableHeader'>City</td>";
         myTable+= "<th class='tableHeader'>Country Code</td></tr>";
     data.forEach(city =>{
@@ -25,6 +25,8 @@ function bookAuthorTableGenerator(data) {
         myTable+="<tr>";
         myTable+="<td class='tableData'>" + book.title + "</td>";
         myTable+="<td class='tableData'>" + book.author + "</td></tr>";
+        // myTable+="<td class='tableData'>" + data[i].title + "</td>";
+        // myTable+="<td class='tableData'>" + data[i].author + "</td></tr>";
       }) 
        myTable+="</table>";
 
