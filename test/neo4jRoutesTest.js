@@ -6,7 +6,7 @@ const chai = require('chai');
 const should = chai.should();
 
 
-describe('Mongo routes tests', function() {
+describe('Neo4j routes tests', function() {
     describe('Find cities by book a title', function() {
         it('should return cities mentioned in the book', function(done) {
             var title = 'Around the World in 80 Days';
@@ -58,12 +58,12 @@ describe('Mongo routes tests', function() {
         });
     });
 
-    describe('Find books by a geo name', function() {
-        it('should return books that mention the city ', function(done) {
+    describe('Find cities in a range of given city', function() {
+        it('should return cities within a certain vicinity ', function(done) {
             var geo = 5781061;
 
             request(app)
-            .get('/neo4j/geo/' + geo)
+            .get('/neo4j/geolocation/' + geo)
             .end(function(err, res) {
 
                 if (err) {
