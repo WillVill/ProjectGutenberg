@@ -104,8 +104,7 @@ router.get('/geolocation/:geo', (req, res, next) => {
             t2 = new Date();
             var books = [];
             var obj = {};
-            session.close();
-
+            
             obj = {
                 name: result.records[0]._fields[1].properties.name,
                 longitude: result.records[0]._fields[1].properties.longitude,
@@ -124,7 +123,7 @@ router.get('/geolocation/:geo', (req, res, next) => {
             res.json({time: time});
         })
         .catch(err => {
-            console.log("error", err);
+            // console.log("error", err);
             res.status(500).json({error: err});
         });
 });
