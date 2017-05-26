@@ -32,7 +32,9 @@ app.use(index);
 // connect to Mongo db
 mongoose.connect(config.db.mongodb);
 
-app.listen(port);
+if(!module.parent) {
+    app.listen(port);
+} 
 console.log('Magic happens on port ' + port);
 
 module.exports = app;

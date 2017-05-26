@@ -14,7 +14,7 @@ router.get('/book/:book', (req, res, next) => {
         .run('MATCH (b:Book {title: {titleParam}})-[:MENTIONES]->(c:City) RETURN c', {titleParam:title})
         .then(result => {
             var cities = [];
-            var t2 = new Date();
+            t2 = new Date();
             session.close();
             result.records.forEach(record => {
                 cities.push(
@@ -25,7 +25,8 @@ router.get('/book/:book', (req, res, next) => {
         })
         .then(cities => {
             var time = t2-t1;
-            res.json({time: time});
+            res.json({time: time,
+            cities: cities});
         })
         .catch(err => {
             console.log("error", err);
@@ -37,12 +38,13 @@ router.get('/book/:book', (req, res, next) => {
 router.get('/city/:city', (req, res, next) => {
     var name = req.params.city;
     var t1 = new Date();
+    var t2;
 
     session
-        .run('MATCH (c:City {name: {nameParam}})<-[:MENTIONES]-(b:Book) RETURN b', {nameParam:name})
+        .run('MATCH (c:City {name: {nameParam} })<-[:MENTIONES]-(b:Book) RETURN b', {nameParam:name})
         .then(result => {
             var books = [];
-            var t2 = new Date();
+            t2 = new Date();
             session.close();
             result.records.forEach(record => {
                 books.push({
@@ -66,6 +68,7 @@ router.get('/city/:city', (req, res, next) => {
 router.get('/author/:author', (req, res, next) => {
     var author = req.params.author;
     var t1 = new Date();
+    var t2;
 
     session
         .run('MATCH (b:Book {author: {authorParam}})-[:MENTIONES]->(c:City) ' +
@@ -74,7 +77,7 @@ router.get('/author/:author', (req, res, next) => {
             'RETURN {books: collect(containerNode)}',
             {authorParam:author})
         .then(result => {
-            var t2 = new Date();
+            t2 = new Date();
             const booksAndCities = result.records[0]._fields[0];
             session.close();
             return booksAndCities;
@@ -93,11 +96,12 @@ router.get('/author/:author', (req, res, next) => {
 router.get('/geolocation/:geo', (req, res, next) => {
     var geo = req.params.geo;
     var t1 = new Date();
+    var t2;
 
     session
         .run('MATCH (c:City {geo: {geoParam}})<-[:MENTIONES]-(b:Book) RETURN b, c', {geoParam:geo})
         .then(result => {
-            var t2 = new Date();
+            t2 = new Date();
             var books = [];
             var obj = {};
             session.close();
