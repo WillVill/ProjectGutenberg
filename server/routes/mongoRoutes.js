@@ -10,13 +10,11 @@ router.get('/book/:book', (req, res, next) => {
 
 	Book.find({title: req.params.book})
 		.then(book => {
-			console.log("book", book);
 
 			return book[0].geos;
 		})
 		.then(geolocations => {
-			console.log("geoloc", geolocations);
-			let _promises = [];
+			var _promises = [];
 			for (var i = geolocations.length - 1; i >= 0; i--) {
 				_promises.push(City.find({geo: geolocations[i]}))
 			}
@@ -68,13 +66,12 @@ router.get('/city/:city', function (req, res, next) {
 router.get('/geolocation/:geo/:distance', function (req, res, next) {
 	var geo = req.params.geo;
 	var distance = req.params.distance;
-	console.log
 	var t1 = new Date();
 	var t2;
 
 	City.find({geo: geo})
 		.then(city => {
-			console.log("city", city[0].loc, distance);
+			// console.log("city", city[0].loc, distance);
 			return City.find({  
 				loc: {
 			      $near: {
@@ -92,7 +89,7 @@ router.get('/geolocation/:geo/:distance', function (req, res, next) {
 			})
 		})
 		.then(cities => {
-			console.log("cities", cities);
+			// console.log("cities", cities);
 			t2 = new Date();
 			var time = t2-t1;
 			console.log("time: "+ time);
@@ -123,7 +120,7 @@ router.get('/author/:author', function (req, res, next) {
 			return cityGeos;
 		})
 		.then(geos => {
-			let _promises = [];
+			var _promises = [];
 			for (var i = geos.length - 1; i >= 0; i--) {
 				_promises.push(City.find({geo: geos[i]}));
 			}

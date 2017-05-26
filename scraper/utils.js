@@ -28,6 +28,10 @@ module.exports = {
     },
 
     stringIntoArray(geoString) {
-        return geoString.split('|').slice(0, -1);
+        var myArray = geoString.split('|').slice(0, -1);
+        for (var i = 0; i < myArray.length; i++) {
+            myArray[i] = parseInt(myArray[i], 10);
+        }
+        return myArray;
     }
 }
